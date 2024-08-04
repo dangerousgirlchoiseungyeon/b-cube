@@ -6,13 +6,17 @@ const TabOneScreen =() => {
   const [namePressed, setNamePressed] = useState(false);
   const [emailPressed, setEmailPressed] = useState(false);
   const [agePressed, setAgePressed] = useState(false);
-  const [name, setName] = useState('최승연');
-  const [email, setEmail] = useState('choisy@ajou.ac.kr');
-  const [age, setAge] = useState(21); 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState(''); 
+  const [hobby, setHobby] = useState('');
+  
 
   const [isNameCompleted, setIsNameCompleted] = useState(false);
   const [isEmailCompleted, setIsEmailCompleted] = useState(false);
   const [isAgeCompleted, setIsAgeCompleted] = useState(false);
+  const [displayHobby, setDisplayHobby] = useState('');
+
 
   const handleNamePress = () => {
     setIsNameCompleted(!isNameCompleted);
@@ -27,6 +31,10 @@ const TabOneScreen =() => {
   const handleAgePress = () => {
     setIsAgeCompleted(!isAgeCompleted);
     Alert.alert(isAgeCompleted ? '나이 수정 완료' : '나이 입력 완료', `나이: ${age}`);
+  };
+
+  const handleHobbyPress = () => {
+    setDisplayHobby(hobby);
   };
 
 
@@ -80,8 +88,25 @@ const TabOneScreen =() => {
       onPress={handleAgePress}
       
     />
+    </View>
+    <View>
+    <Text>취미: {hobby}</Text>
+        <TextInput 
+          style={{ borderWidth: 1, borderColor: '#000', padding: 3, marginBottom: 10 }}
+          value={hobby}
+          onChangeText={(text) => setHobby(text)}
+          placeholder='새로운 추가'
+        />
+        
+        <Button 
+          title='추가' 
+          onPress={handleHobbyPress} 
+        />
+        
+        <Text style={{ fontSize: 16, marginTop: 5 }}>{displayHobby}</Text>
+      </View>
 
-</View>
+
 
   </View>  
   )
