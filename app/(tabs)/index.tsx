@@ -1,70 +1,92 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, Button, TextInput, Alert} from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const TabOneScreen =() => {
+  
+  const [namePressed, setNamePressed] = useState(false);
+  const [emailPressed, setEmailPressed] = useState(false);
+  const [agePressed, setAgePressed] = useState(false);
+  const [name, setName] = useState('최승연');
+  const [email, setEmail] = useState('choisy@ajou.ac.kr');
+  const [age, setAge] = useState(21); 
 
-export default function HomeScreen() {
+  const [isNameCompleted, setIsNameCompleted] = useState(false);
+  const [isEmailCompleted, setIsEmailCompleted] = useState(false);
+  const [isAgeCompleted, setIsAgeCompleted] = useState(false);
+
+  const handleNamePress = () => {
+    setIsNameCompleted(!isNameCompleted);
+    Alert.alert(isNameCompleted ? '이름 수정 완료' : '이름 입력 완료', `이름: ${name}`);
+  };
+
+  const handleEmailPress = () => {
+    setIsEmailCompleted(!isEmailCompleted);
+    Alert.alert(isEmailCompleted ? '이메일 수정 완료' : '이메일 입력 완료', `이메일: ${email}`);
+  };
+
+  const handleAgePress = () => {
+    setIsAgeCompleted(!isAgeCompleted);
+    Alert.alert(isAgeCompleted ? '나이 수정 완료' : '나이 입력 완료', `나이: ${age}`);
+  };
+
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+  <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
+    
+    <Text>본인 소개 페이지</Text>
+
+    <View> 
+
+      <Text>이름: {name}</Text>
+      <TextInput
+        style={{ borderWidth:1, borderColor: '#000', padding: 3, margin: 10}}
+        value={name}
+        onChangeText={(text)=>setName(text)}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+
+      <Button
+      title={isNameCompleted ? '수정' : '완료'}
+      onPress={handleNamePress}
+    
+    />
+    </View>
+  
+
+    <View>
+      <Text>이메일: {email}</Text>
+      <TextInput 
+        style={{ borderWidth:1, borderColor: '#000', padding: 3, margin: 10}}
+        value={email}
+        onChangeText={(text)=>setEmail(text)}  
+        />
+
+      <Button
+      title={isEmailCompleted ? '수정' : '완료'}
+      onPress={handleEmailPress}
+    
+    />
+    </View>
+
+    <View>
+      <Text>나이: {age}</Text>
+      <TextInput 
+      style={{ borderWidth:1, borderColor: '#000', padding: 3, margin: 10}}
+      value={age}
+      onChangeText={(text)=>setAge(text)}
+      />
+
+      <Button
+      title={isAgeCompleted ? '수정' : '완료'}
+      onPress={handleAgePress}
+      
+    />
+
+</View>
+
+  </View>  
+  )
+
+
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default TabOneScreen 
